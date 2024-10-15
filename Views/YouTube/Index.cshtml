@@ -1,0 +1,43 @@
+﻿@model List<YouTubeApiProjectYuni.Models.YouTubeVideoModel>
+
+@{
+    ViewData["Title"] = "YouTube Video Search";
+}
+
+<!-- Main container for the page -->
+<div style="background-color: #f9f9f9; color: #000; padding: 50px; text-align: center;">
+
+    <!-- Main Heading -->
+    <h1 style="color: #e60000; font-size: 36px; margin-bottom: 30px;">
+        Search YouTube Videos
+    </h1>
+
+    <!-- Search Form -->
+    <form asp-action="Search" method="post" style="margin-bottom: 30px;">
+        <input type="text" name="query" placeholder="Search for videos..." style="padding: 10px; font-size: 16px; width: 300px; border: 2px solid #e60000; border-radius: 5px; margin-right: 10px;" />
+        <button type="submit" style="background-color: #e60000; color: #fff; padding: 10px 20px; font-size: 16px; border: none; border-radius: 5px; cursor: pointer;">
+            Search
+        </button>
+    </form>
+
+    <!-- Video Results Section -->
+    @if (Model != null && Model.Any())
+    {
+        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            @foreach (var video in Model)
+            {
+                <div style="background-color: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; margin: 10px; width: 300px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                    <h3 style="font-size: 18px; color: #000;">@video.Title</h3>
+                    <p style="font-size: 14px; color: #666;">@video.Description</p>
+                    <img src="@video.ThumbnailUrl" alt="@video.Title" style="width: 100%; border-radius: 5px;" />
+                    <br />
+                    <a href="@video.VideoUrl" target="_blank" style="text-decoration: none;">
+                        <button type="button" style="background-color: #e60000; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">
+                            Watch
+                        </button>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</div>
